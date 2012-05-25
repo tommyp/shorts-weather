@@ -3,10 +3,9 @@ $header-ff: "atrament-web", sans-serif;
 body {
   max-width: 1120px;
   margin: 0 auto;
-  font-size: 22px;
   background: url('bg.png') repeat;
   .container {
-    padding: 1em;
+    padding: 0.6em;
     text-align: center;
   }  
 }
@@ -48,10 +47,10 @@ footer {
 
 @media screen and (max-width: 700px) {
   h1 {
-    font-size: 60px;
+    font-size: 40px;
   }
   #outcome {
-    font-size: 30px;
+    font-size: 20px;
     #line {
 
     }
