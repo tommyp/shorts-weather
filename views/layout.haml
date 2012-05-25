@@ -1,0 +1,37 @@
+!!! 5
+%html{ :lang => "en", "xml:lang" => "en", :xmlns => 'http://www.w3.org/1999/xhtml' }
+  %head
+    %meta{:charset => "utf-8"}
+    %meta{:content => "en", :name => "language"}
+    %meta{:content => "width=device-width, initial-scale=1", :name => "viewport"}
+      
+    %title
+      Is It Shorts Weather Today?
+    %link{ :href => "/shorts.css", :media => "screen", :rel => "stylesheet", :type => "text/css" }
+    %script{:src => '/jquery.js'}
+    %script{:src => '/shorts.js'}
+    %script{:src => "http://use.typekit.com/vzu3ivn.js", :type => "text/javascript"}
+    :javascript
+      try{Typekit.load();}catch(e){} 
+
+  %body
+    .container
+      %h1
+        Is it shorts weather today?
+      = yield
+
+    %footer
+      %a{:href => "http://tommyp.org"} Made by Tommy
+
+    :javascript
+      var _gauges = _gauges || [];
+      (function() {
+        var t   = document.createElement('script');
+        t.type  = 'text/javascript';
+        t.async = true;
+        t.id    = 'gauges-tracker';
+        t.setAttribute('data-site-id', '4fbe3faef5a1f55bef00002c');
+        t.src = '//secure.gaug.es/track.js';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(t, s);
+      })();
