@@ -7,11 +7,12 @@ geo_success = (position) ->
 
 renderStuff = (temp) ->
   warmLines = [
-    "Hell yeah dude!",
-    "Of course!",
-    "Get the legs out!",
-    "Totes.",
-    "Flat out!"
+    "Hell yeah dude",
+    "Of course",
+    "Get the legs out",
+    "Totes",
+    "Flat out",
+    "No Doubt"
   ]
   warmWords = [
     "lovely",
@@ -25,11 +26,11 @@ renderStuff = (temp) ->
   warmLine = warmLines[Math.floor(Math.random() * warmLines.length)]
 
   coldLines = [
-    "No way dude!",
-    "Hell no.",
+    "No way dude",
+    "Hell no",
     "Are you not wise?",
-    "Jeans flat out.",
-    "Fraid not."
+    "Jeans flat out",
+    "Fraid not"
   ]
   coldWords = [
     "baltic",
