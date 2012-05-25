@@ -65,7 +65,9 @@ GeoNames::findNearByWeather = (latitude, longitude) ->
         lat: details.lat
       renderStuff(details.temperature)
     catch error
-      console.log(error)
+      $('#line').text("Sorry dude!")
+      $('#result').text("I need a better browser to do my thing.")
+      $('#outcome').css('display', 'block')
     # callback weather
 
 $(document).ready ->
