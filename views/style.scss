@@ -11,13 +11,15 @@ body {
 }
 
 #outcome {
-  display: none;
   font-family: futura, serif;
   color: #4B8A79;
   font-size: 40px;
   margin: 0 auto;
   text-align: center;
   text-transform: uppercase;
+  #result {
+    display: none;
+  }
 }
 
 h1 {

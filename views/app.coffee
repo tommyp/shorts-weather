@@ -51,7 +51,7 @@ renderStuff = (temp) ->
     $('#line').text(coldLine)
     $('#word').text(coldWord)
 
-  $('#outcome').css('display', 'block')
+  $('#result').toggle()
 
 GeoNames::findNearByWeather = (latitude, longitude) ->
   $.getJSON "http://ws.geonames.org/findNearByWeatherJSON?lat=" + escape(latitude) + "&lng=" + escape(longitude) + "&callback=?", (response) ->
