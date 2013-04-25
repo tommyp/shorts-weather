@@ -44,7 +44,7 @@ renderStuff = (temp) ->
   coldLine = coldLines[Math.floor(Math.random() * coldLines.length)]
 
   $('#temp').text(temp)
-  if temp >= 17
+  if temp >= 16
     $('#line').text(warmLine)
     $('#word').text(warmWord)
   else
