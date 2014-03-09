@@ -13,8 +13,7 @@ renderStuff = (temp) ->
     "Totes",
     "Flat out",
     "No Doubt",
-    "It bloody well is",
-    "This "
+    "It bloody well is"
   ]
   warmWords = [
     "lovely",
