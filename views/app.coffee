@@ -7,12 +7,14 @@ geo_success = (position) ->
 
 renderStuff = (temp) ->
   warmLines = [
-    "Hell yeah dude",
+    "Hell yeah",
     "Of course",
     "Get the legs out",
     "Totes",
     "Flat out",
-    "No Doubt"
+    "No Doubt",
+    "It bloody well is",
+    "This "
   ]
   warmWords = [
     "lovely",
@@ -26,11 +28,13 @@ renderStuff = (temp) ->
   warmLine = warmLines[Math.floor(Math.random() * warmLines.length)]
 
   coldLines = [
-    "No way dude",
+    "No way",
     "Hell no",
     "Are you not wise?",
     "Jeans flat out",
-    "Fraid not"
+    "Fraid not",
+    "Way on",
+    "Away on"
   ]
   coldWords = [
     "baltic",
@@ -54,7 +58,7 @@ renderStuff = (temp) ->
   $('#result').toggle()
 
 GeoNames::findNearByWeather = (latitude, longitude) ->
-  $.getJSON "http://ws.geonames.org/findNearByWeatherJSON?lat=" + escape(latitude) + "&lng=" + escape(longitude) + "&callback=?", (response) ->
+  $.getJSON "http://ws.geonames.org/findNearByWeatherJSON?lat=" + escape(latitude) + "&lng=" + escape(longitude) + "&callback=?&username=tommyp", (response) ->
     details = undefined
     weather = undefined
     try
@@ -65,8 +69,10 @@ GeoNames::findNearByWeather = (latitude, longitude) ->
         lat: details.lat
       renderStuff(details.temperature)
     catch error
-      $('#line').text("Sorry dude!")
-      $('#result').text("I need a better browser to do my thing.")
+      console.log(error)
+      $('#line').text("Sorry dude")
+      $('#result').text("Looks like something is wrong!")
+      $('#result').toggle()
       $('#outcome').css('display', 'block')
     # callback weather
 
