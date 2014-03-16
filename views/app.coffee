@@ -2,8 +2,8 @@ geo_success = (position) ->
   getWeather(position.coords.latitude, position.coords.longitude)
 
 buildText = (line, word) ->
-  $('#line').text(line)
-  $('#result').text(word).toggle()
+  $('#line').html(line)
+  $('#result').html(word).toggle()
 
 renderStuff = (current, high) ->
   warmLines = [
@@ -50,19 +50,20 @@ renderStuff = (current, high) ->
     "Not yet"
   ]
 
+  warmWord = warmWords[Math.floor(Math.random() * warmWords.length)]
+  coldWord = coldWords[Math.floor(Math.random() * coldWords.length)]
+
   if current >= 16
-    warmWord = warmWords[Math.floor(Math.random() * warmWords.length)]
     warmLine = warmLines[Math.floor(Math.random() * warmLines.length)]
     result = "It's a " + warmWord + " " + current + " Degrees"
     buildText(warmLine, result)
 
   else if high >= 16
     soonLine = soonLines[Math.floor(Math.random() * soonLines.length)]
-    result = "It's only " + current + " right now, but it'll be " + high + " later"
+    result = "It's " + coldWord + " right now,<br/> but it'll be a " + warmWord + " " + high + " degrees later"
     buildText(soonLine, result)
 
   else
-    coldWord = coldWords[Math.floor(Math.random() * coldWords.length)]
     coldLine = coldLines[Math.floor(Math.random() * coldLines.length)]
     result = "It's a " + coldWord + " " + current + " Degrees"
     buildText(coldLine, result)
