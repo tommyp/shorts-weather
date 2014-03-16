@@ -1,11 +1,11 @@
-GeoNames = undefined
-GeoNames = ->
-  this
-
 geo_success = (position) ->
-  GeoNames::findNearByWeather(position.coords.latitude, position.coords.longitude)
+  getWeather(position.coords.latitude, position.coords.longitude)
 
-renderStuff = (temp) ->
+buildText = (line, word) ->
+  $('#line').text(line)
+  $('#result').text(word).toggle()
+
+renderStuff = (current, high) ->
   warmLines = [
     "Hell yeah",
     "Of course",
@@ -23,8 +23,6 @@ renderStuff = (temp) ->
     "sweltering",
     "sunny"
   ]
-  warmWord = warmWords[Math.floor(Math.random() * warmWords.length)]
-  warmLine = warmLines[Math.floor(Math.random() * warmLines.length)]
 
   coldLines = [
     "No way",
@@ -43,37 +41,44 @@ renderStuff = (temp) ->
     "crappy",
     "shitty"
   ]
-  coldWord = coldWords[Math.floor(Math.random() * coldWords.length)]
-  coldLine = coldLines[Math.floor(Math.random() * coldLines.length)]
 
-  $('#temp').text(temp)
-  if temp >= 16
-    $('#line').text(warmLine)
-    $('#word').text(warmWord)
+  soonLines = [
+    "Give it a chance",
+    "Houl yer horses",
+    "Relax yer kacks",
+    "Don't worry",
+    "Not yet"
+  ]
+
+  if current >= 16
+    warmWord = warmWords[Math.floor(Math.random() * warmWords.length)]
+    warmLine = warmLines[Math.floor(Math.random() * warmLines.length)]
+    result = "It's a " + warmWord + " " + current + " Degrees"
+    buildText(warmLine, result)
+
+  else if high >= 16
+    soonLine = soonLines[Math.floor(Math.random() * soonLines.length)]
+    result = "It's only " + current + " right now, but it'll be " + high + " later"
+    buildText(soonLine, result)
+
   else
-    $('#line').text(coldLine)
-    $('#word').text(coldWord)
+    coldWord = coldWords[Math.floor(Math.random() * coldWords.length)]
+    coldLine = coldLines[Math.floor(Math.random() * coldLines.length)]
+    result = "It's a " + coldWord + " " + current + " Degrees"
+    buildText(coldLine, result)
 
-  $('#result').toggle()
 
-GeoNames::findNearByWeather = (latitude, longitude) ->
-  $.getJSON "http://ws.geonames.org/findNearByWeatherJSON?lat=" + escape(latitude) + "&lng=" + escape(longitude) + "&callback=?&username=tommyp", (response) ->
-    details = undefined
-    weather = undefined
-    try
-      details = response.weatherObservation
-      weather =
-        temperature: details.temperature
-        lng: details.lng
-        lat: details.lat
-      renderStuff(details.temperature)
+getWeather = (latitude, longitude) ->
+  $.getJSON "http://api.openweathermap.org/data/2.5/weather?lat=" + escape(latitude) + "&lon=" + escape(longitude), (response) ->
+    try  
+      current_temp = parseInt(response.main.temp - 273.15)
+      high_temp = parseInt(response.main.temp_max - 273.15)
+      renderStuff(current_temp, high_temp)
     catch error
       console.log(error)
       $('#line').text("Sorry dude")
-      $('#result').text("Looks like something is wrong!")
-      $('#result').toggle()
+      $('#result').text("Looks like something is wrong!").toggle()
       $('#outcome').css('display', 'block')
-    # callback weather
 
 $(document).ready ->
   if navigator and navigator.geolocation
