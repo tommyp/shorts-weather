@@ -53,12 +53,14 @@ renderStuff = (current, high) ->
   warmWord = warmWords[Math.floor(Math.random() * warmWords.length)]
   coldWord = coldWords[Math.floor(Math.random() * coldWords.length)]
 
-  if current >= 16
+  trigger = 16
+
+  if current >= trigger
     warmLine = warmLines[Math.floor(Math.random() * warmLines.length)]
     result = "It's a " + warmWord + " " + current + " Degrees"
     buildText(warmLine, result)
 
-  else if high >= 16
+  else if high >= trigger
     soonLine = soonLines[Math.floor(Math.random() * soonLines.length)]
     result = "It's " + coldWord + " right now,<br/> but it'll be a " + warmWord + " " + high + " degrees later"
     buildText(soonLine, result)
