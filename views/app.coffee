@@ -1,11 +1,22 @@
+# Is It Shorts Weather Today? It bloody well is. It's a sweltering 20 degrees in London - http://isitshortsweathertoday.com/ #shortsweather
+
+
 geo_success = (position) ->
   getWeather(position.coords.latitude, position.coords.longitude)
 
-buildText = (line, word) ->
+render = (line, word) ->
   $('#line').html(line)
   $('#result').html(word).toggle()
 
-renderStuff = (current, high) ->
+setTweet = (line, word, temp, locale) ->
+  tweetText = "Is it Shorts Weather today? " + line + ". It\'s a " + word + " " + temp + " degrees in " + locale
+  tweetHtml = '<a href="https://twitter.com/share" class="twitter-share-button" data-text="' + tweetText + '" data-hashtags="shortsweather">Tweet</a>'
+  $('#twitter-widget-0').remove();
+  $('#tweet').append(tweetHtml);
+  twttr.widgets.load();
+  $('#tweet').toggle();
+
+buildText = (current, high, locale) ->
   warmLines = [
     "Hell yeah",
     "Of course",
@@ -58,27 +69,28 @@ renderStuff = (current, high) ->
   if current >= trigger
     warmLine = warmLines[Math.floor(Math.random() * warmLines.length)]
     result = "It's a " + warmWord + " " + current + " Degrees"
-    buildText(warmLine, result)
+    render(warmLine, result)
+    setTweet(warmLine, warmWord, current, locale)
 
   else if high >= trigger
     soonLine = soonLines[Math.floor(Math.random() * soonLines.length)]
-    result = "It's " + coldWord + " right now,<br/> but it'll be a " + warmWord + " " + high + " degrees later"
-    buildText(soonLine, result)
-
+    result = "It's " + coldWord + " " + current + " degrees right now,<br/> but it'll be a " + warmWord + " " + high + " degrees later"
+    render(soonLine, result)
+    setTweet(soonLine, soonWord, current, locale)
   else
     coldLine = coldLines[Math.floor(Math.random() * coldLines.length)]
     result = "It's a " + coldWord + " " + current + " Degrees"
-    buildText(coldLine, result)
-
+    render(coldLine, result)
+    setTweet(coldLine, coldWord, current, locale)
 
 getWeather = (latitude, longitude) ->
   $.getJSON "http://api.openweathermap.org/data/2.5/weather?lat=" + escape(latitude) + "&lon=" + escape(longitude), (response) ->
-    try  
+    try
+      locale = response.name
       current_temp = parseInt(response.main.temp - 273.15)
       high_temp = parseInt(response.main.temp_max - 273.15)
-      renderStuff(current_temp, high_temp)
+      buildText(current_temp, high_temp, locale)
     catch error
-      console.log(error)
       $('#line').text("Sorry dude")
       $('#result').text("Looks like something is wrong!").toggle()
       $('#outcome').css('display', 'block')
@@ -87,4 +99,4 @@ $(document).ready ->
   if navigator and navigator.geolocation
     navigator.geolocation.getCurrentPosition(geo_success)
   else
-    error "Geolocation is not supported."
+    error "Geolocale is not supported."
