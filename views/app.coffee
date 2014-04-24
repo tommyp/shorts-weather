@@ -9,7 +9,7 @@ render = (line, word) ->
   $('#result').html(word).toggle()
 
 setTweet = (line, word, temp, locale) ->
-  tweetText = "Is it Shorts Weather today? " + line + ". It\'s a " + word + " " + temp + " degrees in " + locale
+  tweetText = "Is it Shorts Weather today? " + line + ". It\'s a " + word + " " + temp + " degrees in " + locale + "."
   tweetHtml = '<a href="https://twitter.com/share" class="twitter-share-button" data-text="' + tweetText + '" data-hashtags="shortsweather">Tweet</a>'
   $('#twitter-widget-0').remove();
   $('#tweet').append(tweetHtml);
