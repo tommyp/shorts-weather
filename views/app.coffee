@@ -4,9 +4,9 @@
 geo_success = (position) ->
   getWeather(position.coords.latitude, position.coords.longitude)
 
-render = (line, word) ->
+render = (line, result) ->
   $('#line').html(line)
-  $('#result').html(word).toggle()
+  $('#result').html(result).toggle()
 
 setTweet = (line, word, temp, locale) ->
   tweetText = "Is it Shorts Weather today? " + line + ". It\'s a " + word + " " + temp + " degrees in " + locale + "."
@@ -74,9 +74,9 @@ buildText = (current, high, locale) ->
 
   else if high >= trigger
     soonLine = soonLines[Math.floor(Math.random() * soonLines.length)]
-    result = "It's " + coldWord + " " + current + " degrees right now,<br/> but it'll be a " + warmWord + " " + high + " degrees later"
+    result = "It's a " + coldWord + " " + current + " degrees right now,<br/> but it'll be a " + warmWord + " " + high + " degrees later"
     render(soonLine, result)
-    setTweet(soonLine, soonWord, current, locale)
+    setTweet(soonLine, coldWord, current, locale)
   else
     coldLine = coldLines[Math.floor(Math.random() * coldLines.length)]
     result = "It's a " + coldWord + " " + current + " Degrees"
@@ -91,9 +91,10 @@ getWeather = (latitude, longitude) ->
       high_temp = parseInt(response.main.temp_max - 273.15)
       buildText(current_temp, high_temp, locale)
     catch error
-      $('#line').text("Sorry dude")
-      $('#result').text("Looks like something is wrong!").toggle()
-      $('#outcome').css('display', 'block')
+      line = "Sorry dude"
+      result = "Looks like something is wrong!"
+      render(line, result)
+      console.log(error)
 
 $(document).ready ->
   if navigator and navigator.geolocation
