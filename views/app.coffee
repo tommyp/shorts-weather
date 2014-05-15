@@ -16,7 +16,7 @@ setTweet = (line, word, temp, locale) ->
   twttr.widgets.load();
   $('#tweet').toggle();
 
-buildText = (current, high, locale) ->
+buildText = (current, high, locale, code) ->
   warmLines = [
     "Hell yeah",
     "Of course",
@@ -64,9 +64,10 @@ buildText = (current, high, locale) ->
   warmWord = warmWords[Math.floor(Math.random() * warmWords.length)]
   coldWord = coldWords[Math.floor(Math.random() * coldWords.length)]
 
+  triggerCodes = [800]
   trigger = 15
 
-  if current >= trigger
+  if current >= trigger && triggerCodes.indexOf(code) != -1
     warmLine = warmLines[Math.floor(Math.random() * warmLines.length)]
     result = "It's a " + warmWord + " " + current + " Degrees"
     render(warmLine, result)
@@ -86,10 +87,11 @@ buildText = (current, high, locale) ->
 getWeather = (latitude, longitude) ->
   $.getJSON "http://api.openweathermap.org/data/2.5/weather?lat=" + escape(latitude) + "&lon=" + escape(longitude), (response) ->
     try
+      code = response.weather[0].id
       locale = response.name
       current_temp = parseInt(response.main.temp - 273.15)
       high_temp = parseInt(response.main.temp_max - 273.15)
-      buildText(current_temp, high_temp, locale)
+      buildText(current_temp, high_temp, locale, code)
     catch error
       line = "Sorry dude"
       result = "Looks like something is wrong!"
