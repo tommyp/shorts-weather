@@ -64,7 +64,7 @@ buildText = (current, high, locale) ->
   warmWord = warmWords[Math.floor(Math.random() * warmWords.length)]
   coldWord = coldWords[Math.floor(Math.random() * coldWords.length)]
 
-  trigger = 15
+  trigger = 13
 
   if current >= trigger
     warmLine = warmLines[Math.floor(Math.random() * warmLines.length)]
