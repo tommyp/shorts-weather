@@ -72,7 +72,7 @@ buildText = (current, high, locale, code) ->
     render(warmLine, result)
     setTweet(warmLine, warmWord, current, locale)
 
-  else if high >= trigger
+  else if high >= trigger && triggerCodes.indexOf(code) != -1
     soonLine = soonLines[Math.floor(Math.random() * soonLines.length)]
     result = "It's a " + coldWord + " " + current + " degrees right now,<br/> but it'll be a " + warmWord + " " + high + " degrees later"
     render(soonLine, result)
