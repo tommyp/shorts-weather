@@ -1,6 +1,3 @@
-# Is It Shorts Weather Today? It bloody well is. It's a sweltering 20 degrees in London - http://isitshortsweathertoday.com/ #shortsweather
-
-
 geo_success = (position) ->
   getWeather(position.coords.latitude, position.coords.longitude)
 
@@ -64,7 +61,8 @@ buildText = (current, high, locale, code) ->
   warmWord = warmWords[Math.floor(Math.random() * warmWords.length)]
   coldWord = coldWords[Math.floor(Math.random() * coldWords.length)]
 
-  triggerCodes = [800]
+  # Additional codes: 803, 901, 904, 950, 951, 952, 953, 954, 955
+  triggerCodes = [800, 801, 802]
   trigger = 15
 
   if current >= trigger && triggerCodes.indexOf(code) != -1
