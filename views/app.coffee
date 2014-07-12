@@ -64,7 +64,7 @@ buildText = (current, high, locale, code) ->
 
   trigger = 13
   # Additional codes: 803, 901, 904, 950, 951, 952, 953, 954, 955
-  triggerCodes = [800, 801, 802]
+  triggerCodes = [701, 800, 801, 802]
 
   if current >= trigger && triggerCodes.indexOf(code) != -1
     warmLine = warmLines[Math.floor(Math.random() * warmLines.length)]
@@ -86,6 +86,7 @@ buildText = (current, high, locale, code) ->
 getWeather = (latitude, longitude) ->
   $.getJSON "http://api.openweathermap.org/data/2.5/weather?lat=" + escape(latitude) + "&lon=" + escape(longitude), (response) ->
     try
+      console.log(response)
       code = response.weather[0].id
       locale = response.name
       current_temp = parseInt(response.main.temp - 273.15)
