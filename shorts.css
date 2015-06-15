@@ -1,14 +1,14 @@
-$header-ff: "atrament-web", sans-serif;
-
 body {
   max-width: 1120px;
   margin: 0 auto;
   background: url('bg.png') repeat;
-  .container {
-    padding: 0.6em;
-    text-align: center;
-  }
 }
+
+body .container {
+  padding: 0.6em;
+  text-align: center;
+}
+
 
 #outcome {
   font-family: "futura-pt", serif;
@@ -17,9 +17,10 @@ body {
   margin: 0 auto;
   text-align: center;
   text-transform: uppercase;
-  #result {
-    display: none;
-  }
+}
+
+#outcome #result {
+  display: none;
 }
 
 h1 {
@@ -45,10 +46,11 @@ footer {
   text-align: center;
   font-size: 16px;
   text-transform: uppercase;
-  a {
-    color: #4B8A79;
-    text-decoration: none;
-  }
+}
+
+footer a {
+  color: #4B8A79;
+  text-decoration: none;
 }
 
 @media screen and (max-width: 700px) {
@@ -57,11 +59,5 @@ footer {
   }
   #outcome {
     font-size: 20px;
-    #line {
-
-    }
-    #result {
-
-    }
   }
 }
