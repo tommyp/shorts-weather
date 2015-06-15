@@ -1,4 +1,4 @@
-# Shorts App 3.0
+# Shorts Weather 3.0
 
 * _JS geolocation_ - No more typing in your city! What are you, a guy with fingers!? Sheesh.
 * _Responsive layout_ - You got a mobile device? I got a mobile layout!
