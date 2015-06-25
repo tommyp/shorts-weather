@@ -50,7 +50,7 @@
       warmWord = warmWords[Math.floor(Math.random() * warmWords.length)];
       coldWord = coldWords[Math.floor(Math.random() * coldWords.length)];
       trigger = 13;
-      triggerCodes = [701, 800, 801, 802];
+      triggerCodes = [701, 800, 801, 802, 803];
 
       if (current >= trigger && triggerCodes.indexOf(code) !== -1) {
         warmLine = warmLines[Math.floor(Math.random() * warmLines.length)];
