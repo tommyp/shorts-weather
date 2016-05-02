@@ -7,6 +7,7 @@
     },
 
     getWeather: function (lat, long) {
+      console.log('Querying openweathermap')
       $.getJSON("http://api.openweathermap.org/data/2.5/weather?lat=" + escape(lat) + "&lon=" + escape(long) + "&appid=a2eea84afb6ad67c54127563cc7048a6&", function(response) {
         var code, current_temp, error, high_temp, line, locale, result;
         try {
@@ -88,8 +89,10 @@
 
   $(document).ready(function() {
     if (navigator && navigator.geolocation) {
+      console.log('has navigator and geo')
       return navigator.geolocation.getCurrentPosition(
         function (position) {
+          console.log(position)
           var coordinates = {lat: position.coords.latitude, long: position.coords.longitude};
           ShortsWeather.init(coordinates);
         }
