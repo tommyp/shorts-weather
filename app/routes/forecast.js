@@ -5,8 +5,11 @@ export default Ember.Route.extend({
   geolocation: Ember.inject.service(),
 
   getWeather: function(lat, long) {
+    let controller = this.controller
     Ember.$.getJSON("https://shorts-weather-api.herokuapp.com/forecast.json?lat=" + lat + "&long=" + long, function(data) {
-      console.log(data);
+      this.data = data
+
+      controller.set('data', data)
     })
   },
 
