@@ -1,4 +1,4 @@
-<main>
+<main class="{{weather.css_class}}">
 
   <h1>Is it shorts weather today?</h1>
 
@@ -6,10 +6,17 @@
 
     <h2>{{weather.statement.answer}}</h2>
 
-    <h2>{{weather.statement.description}}</h2>
+    <h2 id="description">{{weather.statement.description}}</h2>
 
   </section>
 
   <button type="button" {{action 'getUserLocation'}}>Find out</button>
 
+  <footer>
+    <a href='http://tommyp.org'>Made by Tommy</a>
+    <br/>
+    <br/>
+    <br/>
+    <small><a href="https://roo.it/tommyp">Get £5 free on Deliveroo</a></small>
+  </footer>
 </main>

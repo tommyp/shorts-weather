@@ -6,25 +6,39 @@ export default Ember.Route.extend({
 
   geolocation: Ember.inject.service(),
 
-  possibleStates: [ "clear-day", "partly-cloudy-day" ],
+  condition: null,
+
+  possibleConditions: [
+    "clear-day",
+    "clear-night",
+    "rain",
+    "snow",
+    "sleet",
+    "wind",
+    "fog",
+    "cloudy",
+    "partly-cloudy-day",
+    "partly-cloudy-night",
+  ],
 
   getWeather: function(lat, long) {
     let controller = this.controller;
-    let that = this;
+    let route = this;
 
     Ember.$.getJSON("https://shorts-weather-api.herokuapp.com/forecast.json?lat=" + lat + "&long=" + long, function(data) {
       console.log(data);
 
       let weather = {
+        condition: data.currently.icon,
         temperature: data.currently.temperature,
         apparentTemperature: data.currently.apparentTemperature,
         precipProbability: data.currently.precipProbability,
         humidity: data.currently.humidity,
         icon: data.currently.icon,
-        statement: that.statement(data)
+        statement: route.statement(data)
       };
 
-      that.set('weather', weather);
+      route.set('weather', weather);
       controller.set('weather', weather);
     });
   },
