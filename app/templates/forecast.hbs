@@ -1,6 +1,15 @@
-<button type="button" {{action 'getUserLocation'}}>Geolocate me!</button>
+<main>
 
-  <h2>Lat: {{lat}}</h2>
-  <h2>Long: {{long}}</h2>
+  <h1>Is it shorts weather today?</h1>
 
-{{data}}
+  <section id="outcome">
+
+    <h2>{{weather.statement.answer}}</h2>
+
+    <h2>{{weather.statement.description}}</h2>
+
+  </section>
+
+  <button type="button" {{action 'getUserLocation'}}>Find out</button>
+
+</main>
