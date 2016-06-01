@@ -1,0 +1,37 @@
+<main class="{{weather.css_class}}">
+
+  <h1>Is it shorts weather today?</h1>
+
+  <section id="outcome">
+
+    {{#if isLoading}}
+      {{#unless hasForecast}}
+        <h2>Loading...</h2>
+      {{/unless}}
+    {{/if}}
+
+    {{#if hasForecast}}
+      {{#if hasLocation}}
+        <h2 id="eomji">{{weather.icon}}</h2>
+
+        <h2>{{weather.result.answer}}</h2>
+
+        <h2 id="description">{{weather.result.description}}</h2>
+      {{/if}}
+    {{/if}}
+
+
+  </section>
+
+  {{#unless isLoading}}
+    <button type="button" {{action 'getUserLocation'}}>Find out</button>
+  {{/unless}}
+
+  <footer>
+    <a href='http://tommyp.org'>Made by Tommy</a>
+    <br/>
+    <br/>
+    <br/>
+    <small><a href="https://roo.it/tommyp">Get £5 free on Deliveroo</a></small>
+  </footer>
+</main>
