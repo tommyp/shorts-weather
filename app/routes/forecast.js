@@ -9,13 +9,13 @@ export default Ember.Route.extend({
   condition: null,
 
   possibleConditions: [
-    "clear-day",
+    "clear-day", // YES
     "clear-night",
-    "rain",
-    "snow",
-    "sleet",
-    "wind",
-    "fog",
+    "rain", // NO
+    "snow", // NO
+    "sleet", // NO
+    "wind", // NO
+    "fog", // NO
     "cloudy",
     "partly-cloudy-day",
     "partly-cloudy-night",
@@ -34,8 +34,7 @@ export default Ember.Route.extend({
         apparentTemperature: data.currently.apparentTemperature,
         precipProbability: data.currently.precipProbability,
         humidity: data.currently.humidity,
-        icon: data.currently.icon,
-        statement: route.statement(data)
+        result: route.result(data)
       };
 
       route.set('weather', weather);
@@ -43,27 +42,46 @@ export default Ember.Route.extend({
     });
   },
 
-  statement: function(data) {
+  result: function(data) {
     let lines = [];
-    let words = [];
-    let temp = data.currently.temperature;
-    let apprentTemp = data.currently.apparentTemperature;
-    if (temp >= this.controller.get('trigger')) {
+    let description;
+    let warmWords = ["lovely", "great", "warm", "hot", "sweltering", "sunny"];
+    let coldWords = ["baltic", "freezing", "chilly", "cold", "crappy", "shitty"];
+    let warmWord = warmWords[Math.floor(Math.random() * warmWords.length)];
+    let coldWord = coldWords[Math.floor(Math.random() * coldWords.length)];
+
+    let temp = data.currently.apparentTemperature;
+    let controller = this.controller;
+
+    let warmer_hours = data.hourly.data.filter(function(hour) {
+      return hour.apparentTemperature >= controller.get('trigger') && hour.icon === "clear-day";
+    });
+
+    warmer_hours = warmer_hours.sort(function(a, b) {
+      return parseFloat(a.apparentTemperature) - parseFloat(b.apparentTemperature);
+    });
+
+    if (warmer_hours.length >= 1) {
+      let high = warmer_hours[0].apparentTemperature;  
+    }
+
+    if (temp >= this.controller.get('trigger') && data.currently.icon === "clear-day") {
       // Warm
       lines.push("Hell yeah", "Of course", "Get the legs out", "Totes", "Flat out", "No Doubt", "It bloody well is");
-      words.push("lovely", "great", "warm", "hot", "sweltering", "sunny");
-    } else if (temp < this.controller.get('trigger')) {
-      // Cold
-      lines.push("No way", "Hell no", "Are you not wise?", "Jeans flat out", "Fraid not", "Way on", "Away on");
-      words.push("baltic", "freezing", "chilly", "cold", "crappy", "shitty");
+      description = "It's a " + warmWord + " " + Math.round(temp) + " Degrees";
+    } else if (warmer_hours.length >= 1) {
+      // Not warm now but a warmer hour later
+      lines.push("Give it a chance", "Houl yer horses", "Relax yer kacks", "Don't worry", "Not yet");
+      description = "It's a " + coldWord + " " + temp + " degrees right now,<br/> but it'll be a " + warmWord + " " + high + " degrees later";
     } else {
-
+      // Not warm and no warmer hours later
+      lines.push("No way", "Hell no", "Are you not wise?", "Jeans flat out", "Fraid not", "Way on", "Away on");
+      description = "It's a " + coldWord + " " + Math.round(temp) + " Degrees";
     }
-    let word = words[Math.floor(Math.random() * words.length)];
 
     let result = {
       answer: lines[Math.floor(Math.random() * lines.length)],
-      description: "It's a " + word + " " + Math.round(temp) + " Degrees"
+      description: description,
     };
 
     return result;
@@ -71,15 +89,17 @@ export default Ember.Route.extend({
 
   actions: {
     getUserLocation: function() {
-      let that = this;
+      this.controller.set('loading', true);
+      let route = this;
       this.get('geolocation').getLocation().then(function(geoObject) {
         console.log(geoObject);
+
         let lat = geoObject.coords.latitude;
         let long = geoObject.coords.longitude;
-        that.controller.set('lat', lat);
-        that.controller.set('long', long);
-
-        that.getWeather(lat, long);
+        route.controller.set('lat', lat);
+        route.controller.set('long', long);
+        route.controller.set('hasLocation', true);
+        route.getWeather(lat, long);
       });
     }
   }
