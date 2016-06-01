@@ -10,6 +10,8 @@ export default Ember.Controller.extend({
 
   hasForecast: false,
 
+  isLoading: false,
+
   trigger: 13,
 
 });

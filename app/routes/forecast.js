@@ -45,6 +45,7 @@ export default Ember.Route.extend({
   result: function(data) {
     let lines = [];
     let description;
+    let high;
     let warmWords = ["lovely", "great", "warm", "hot", "sweltering", "sunny"];
     let coldWords = ["baltic", "freezing", "chilly", "cold", "crappy", "shitty"];
     let warmWord = warmWords[Math.floor(Math.random() * warmWords.length)];
@@ -62,7 +63,7 @@ export default Ember.Route.extend({
     });
 
     if (warmer_hours.length >= 1) {
-      let high = warmer_hours[0].apparentTemperature;  
+      high = warmer_hours[0].apparentTemperature;
     }
 
     if (temp >= this.controller.get('trigger') && data.currently.icon === "clear-day") {
@@ -84,15 +85,18 @@ export default Ember.Route.extend({
       description: description,
     };
 
+    controller.set('hasForecast', true);
+
     return result;
   },
 
   actions: {
     getUserLocation: function() {
-      this.controller.set('loading', true);
+      this.controller.set('isLoading', true);
       let route = this;
       this.get('geolocation').getLocation().then(function(geoObject) {
         console.log(geoObject);
+        route.controller.set('hasLocation', true);
 
         let lat = geoObject.coords.latitude;
         let long = geoObject.coords.longitude;
