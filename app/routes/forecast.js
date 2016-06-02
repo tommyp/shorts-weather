@@ -16,9 +16,9 @@ export default Ember.Route.extend({
     "sleet", // NO
     "wind", // NO
     "fog", // NO
-    "cloudy",
-    "partly-cloudy-day",
-    "partly-cloudy-night",
+    "cloudy", // NO
+    "partly-cloudy-day", // YES
+    "partly-cloudy-night", // NO
   ],
 
   getWeather: function(lat, long) {
@@ -76,7 +76,7 @@ export default Ember.Route.extend({
       description = "It's a " + coldWord + " " + temp + " degrees right now,<br/> but it'll be a " + warmWord + " " + high + " degrees later";
     } else {
       // Not warm and no warmer hours later
-      lines.push("No way", "Hell no", "Are you not wise?", "Jeans flat out", "Fraid not", "Way on", "Away on");
+      lines.push("No way", "Hell no", "Are you not wise?", "Jeans flat out", "Fraid not", "Way on", "Away on", "Fuck away off", "Are you having a giraffe?");
       description = "It's a " + coldWord + " " + Math.round(temp) + " Degrees";
     }
 
