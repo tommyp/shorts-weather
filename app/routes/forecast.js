@@ -21,6 +21,11 @@ export default Ember.Route.extend({
     "partly-cloudy-night", // NO
   ],
 
+  goodConditions: [
+    "partly-cloudy-day", // YES
+    "clear-day", // YES
+  ],
+
   getWeather: function(lat, long) {
     let controller = this.controller;
     let route = this;
@@ -54,8 +59,8 @@ export default Ember.Route.extend({
     let temp = data.currently.apparentTemperature;
     let controller = this.controller;
 
-    let warmer_hours = data.hourly.data.filter(function(hour) {
-      return hour.apparentTemperature >= controller.get('trigger') && hour.icon === "clear-day";
+    let warmer_hours = data.hourly.data.filter((hour) => {
+      return hour.apparentTemperature >= controller.get('trigger') && this.goodConditions.indexOf(hour.icon) !== -1;
     });
 
     warmer_hours = warmer_hours.sort(function(a, b) {
@@ -66,14 +71,14 @@ export default Ember.Route.extend({
       high = warmer_hours[0].apparentTemperature;
     }
 
-    if (temp >= this.controller.get('trigger') && data.currently.icon === "clear-day") {
+    if (temp >= this.controller.get('trigger') && this.goodConditions.indexOf(data.currently.icon) !== -1)  {
       // Warm
       lines.push("Hell yeah", "Of course", "Get the legs out", "Totes", "Flat out", "No Doubt", "It bloody well is");
       description = "It's a " + warmWord + " " + Math.round(temp) + " Degrees";
     } else if (warmer_hours.length >= 1) {
       // Not warm now but a warmer hour later
       lines.push("Give it a chance", "Houl yer horses", "Relax yer kacks", "Don't worry", "Not yet");
-      description = "It's a " + coldWord + " " + temp + " degrees right now,<br/> but it'll be a " + warmWord + " " + high + " degrees later";
+      description = "It's a " + coldWord + " " + temp + " degrees right now, but it'll be a " + warmWord + " " + high + " degrees later";
     } else {
       // Not warm and no warmer hours later
       lines.push("No way", "Hell no", "Are you not wise?", "Jeans flat out", "Fraid not", "Way on", "Away on", "Fuck away off", "Are you having a giraffe?");
