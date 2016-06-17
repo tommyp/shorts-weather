@@ -51,10 +51,6 @@ export default Ember.Route.extend({
     let lines = [];
     let description;
     let high;
-    let warmWords = ["lovely", "great", "warm", "hot", "sweltering", "sunny"];
-    let coldWords = ["baltic", "freezing", "chilly", "cold", "crappy", "shitty"];
-    let warmWord = warmWords[Math.floor(Math.random() * warmWords.length)];
-    let coldWord = coldWords[Math.floor(Math.random() * coldWords.length)];
 
     let temp = data.currently.apparentTemperature;
     let controller = this.controller;
@@ -97,19 +93,19 @@ export default Ember.Route.extend({
 
   forecast_icon_to_word: function(icon) {
     let words = {
-      "clear-day": "sunny",
-      "clear-night": "starry",
-      "rain": "wet",
-      "snow": "snowy",
-      "sleet": "wet and snowy",
-      "wind": "windy",
-      "fog": "foggy",
-      "cloudy": "grey",
-      "partly-cloudy-day": "cloudy",
-      "partly-cloudy-night": "starry"
+      "clear-day": ["sunny", "roasting", "swealtering", "schwealterin'", "dynamite", "unreal", "amazing", "lovely", "hot", "warm", "great"],
+      "clear-night": ["starry", "unreal", "pretty", "lovely", "amazing"],
+      "rain": ["wet", "soggy", "damp", "moist", "cold", "coul", "baltic", "freezing", "chilly"],
+      "snow": ["snowy", "artic", "baltic", "freezing", "freezin'", "chilly"],
+      "sleet": ["wet and snowy", "freezin'", "freezing", "damp", "moist", "cold", "coul", "baltic", "chilly"],
+      "wind": ["windy", "chilly", "cold", "coul", "baltic", "blustery"],
+      "fog": ["foggy"],
+      "cloudy": ["grey", "shite", "cloudy", "ballix"],
+      "partly-cloudy-day": ["cloudy", "alright", "so-so", "not too bad", "meh"],
+      "partly-cloudy-night": ["starry", "pretty", "lovely"],
     };
 
-    return words[icon];
+    return words[icon][Math.floor(Math.random()*words[icon].length)];
   },
 
   actions: {
