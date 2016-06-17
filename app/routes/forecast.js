@@ -74,15 +74,15 @@ export default Ember.Route.extend({
     if (temp >= this.controller.get('trigger') && this.goodConditions.indexOf(data.currently.icon) !== -1)  {
       // Warm
       lines.push("Hell yeah", "Of course", "Get the legs out", "Totes", "Flat out", "No Doubt", "It bloody well is");
-      description = "It's a " + warmWord + " " + Math.round(temp) + " Degrees";
+      description = "It's a " + this.forecast_icon_to_word(data.currently.icon) + " " + Math.round(temp) + " Degrees";
     } else if (warmer_hours.length >= 1) {
       // Not warm now but a warmer hour later
-      lines.push("Give it a chance", "Houl yer horses", "Relax yer kacks", "Don't worry", "Not yet");
-      description = "It's a " + coldWord + " " + temp + " degrees right now, but it'll be a " + warmWord + " " + high + " degrees later";
+      lines.push("Give it a chance", "Houl yer horses", "Relax yer kacks", "Don't worry", "Possibly", "Maybe", "I dunno", "Fuck knows if I know", "Not yet");
+      description = "It's a " + this.forecast_icon_to_word(data.currently.icon) + " " + temp + " degrees right now, but it'll be a " + this.forecast_icon_to_word(warmer_hours[0].icon) + " " + high + " degrees later";
     } else {
       // Not warm and no warmer hours later
       lines.push("No way", "Hell no", "Are you not wise?", "Jeans flat out", "Fraid not", "Way on", "Away on", "Fuck away off", "Are you having a giraffe?");
-      description = "It's a " + coldWord + " " + Math.round(temp) + " Degrees";
+      description = "It's a " + this.forecast_icon_to_word(data.currently.icon) + " " + Math.round(temp) + " Degrees";
     }
 
     let result = {
@@ -93,6 +93,23 @@ export default Ember.Route.extend({
     controller.set('hasForecast', true);
 
     return result;
+  },
+
+  forecast_icon_to_word: function(icon) {
+    let words = {
+      "clear-day": "sunny",
+      "clear-night": "starry",
+      "rain": "wet",
+      "snow": "snowy",
+      "sleet": "wet and snowy",
+      "wind": "windy",
+      "fog": "foggy",
+      "cloudy": "grey",
+      "partly-cloudy-day": "cloudy",
+      "partly-cloudy-night": "starry"
+    };
+
+    return words[icon];
   },
 
   actions: {
