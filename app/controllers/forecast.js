@@ -12,6 +12,6 @@ export default Ember.Controller.extend({
 
   isLoading: false,
 
-  trigger: 15,
+  trigger: 16,
 
 });
