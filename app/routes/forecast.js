@@ -93,11 +93,11 @@ export default Ember.Route.extend({
 
   forecast_icon_to_word: function(icon) {
     let words = {
-      "clear-day": ["sunny", "roasting", "swealtering", "schwealterin'", "dynamite", "unreal", "amazing", "lovely", "hot", "warm", "great"],
+      "clear-day": ["banging", "sunny", "roasting", "swealtering", "schwealterin'", "dynamite", "unreal", "amazing", "lovely", "hot", "warm", "great"],
       "clear-night": ["starry", "unreal", "pretty", "lovely", "amazing"],
       "rain": ["wet", "soggy", "damp", "moist", "cold", "coul", "baltic", "freezing", "chilly"],
       "snow": ["snowy", "artic", "baltic", "freezing", "freezin'", "chilly"],
-      "sleet": ["wet and snowy", "freezin'", "freezing", "damp", "moist", "cold", "coul", "baltic", "chilly"],
+      "sleet": ["wet",  "wet and snowy", "freezin'", "freezing", "damp", "moist", "cold", "coul", "baltic", "chilly"],
       "wind": ["windy", "chilly", "cold", "coul", "baltic", "blustery"],
       "fog": ["foggy"],
       "cloudy": ["grey", "shite", "cloudy", "ballix"],
