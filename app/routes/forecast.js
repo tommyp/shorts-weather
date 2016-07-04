@@ -59,12 +59,12 @@ export default Ember.Route.extend({
       return hour.apparentTemperature >= controller.get('trigger') && this.goodConditions.indexOf(hour.icon) !== -1;
     });
 
-    warmer_hours = warmer_hours.sort(function(a, b) {
+    let sorted_warmer_hours = warmer_hours.sort(function(a, b) {
       return parseFloat(a.apparentTemperature) - parseFloat(b.apparentTemperature);
     });
 
-    if (warmer_hours.length >= 1) {
-      high = warmer_hours[0].apparentTemperature;
+    if (sorted_warmer_hours.length >= 1) {
+      high = sorted_warmer_hours.pop();
     }
 
     if (temp >= this.controller.get('trigger') && this.goodConditions.indexOf(data.currently.icon) !== -1)  {
@@ -74,7 +74,7 @@ export default Ember.Route.extend({
     } else if (warmer_hours.length >= 1) {
       // Not warm now but a warmer hour later
       lines.push("Not now, but it'll be warmer later", "Give it a chance", "Houl yer horses", "Relax yer kacks", "Don't worry", "Possibly?", "Maybe?", "I dunno?", "Fuck knows if I know", "Not yet");
-      description = "It's a " + this.forecast_icon_to_word(data.currently.icon) + " " + Math.round(temp) + " degrees right now, but it'll be a " + this.forecast_icon_to_word(warmer_hours[0].icon) + " " + Math.round(high) + " degrees later";
+      description = "It's a " + this.forecast_icon_to_word(data.currently.icon) + " " + Math.round(temp) + " degrees right now, but it'll be a " + this.forecast_icon_to_word(high.icon) + " " + Math.round(high.apparentTemperature) + " degrees later";
     } else {
       // Not warm and no warmer hours later
       lines.push("No way", "Hell no", "Are you not wise?", "Jeans flat out", "Fraid not", "Way on", "Away on", "Fuck away off", "Are you having a giraffe?");
