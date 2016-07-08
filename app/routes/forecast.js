@@ -101,7 +101,7 @@ export default Ember.Route.extend({
       "wind": ["windy", "chilly", "cold", "coul", "baltic", "blustery"],
       "fog": ["foggy"],
       "cloudy": ["grey", "shite", "cloudy", "ballix"],
-      "partly-cloudy-day": ["cloudy", "alright", "so-so", "not too bad", "meh"],
+      "partly-cloudy-day": ["cloudy", "so-so", "not too bad"],
       "partly-cloudy-night": ["starry", "pretty", "lovely"],
     };
 
