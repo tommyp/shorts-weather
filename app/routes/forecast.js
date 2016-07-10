@@ -73,7 +73,7 @@ export default Ember.Route.extend({
       description = "It's a " + this.forecast_icon_to_word(data.currently.icon) + " " + Math.round(temp) + " Degrees";
     } else if (warmer_hours.length >= 1) {
       // Not warm now but a warmer hour later
-      lines.push("Not now, but it'll be warmer later", "Give it a chance", "Houl yer horses", "Relax yer kacks", "Don't worry", "Possibly?", "Maybe?", "I dunno?", "Fuck knows if I know", "Not yet");
+      lines.push("Not now, but it'll be warmer later", "Give it a chance", "Houl yer horses", "Relax yer kacks", "Don't worry", "Not yet");
       description = "It's a " + this.forecast_icon_to_word(data.currently.icon) + " " + Math.round(temp) + " degrees right now, but it'll be a " + this.forecast_icon_to_word(high.icon) + " " + Math.round(high.apparentTemperature) + " degrees later";
     } else {
       // Not warm and no warmer hours later
@@ -94,14 +94,14 @@ export default Ember.Route.extend({
   forecast_icon_to_word: function(icon) {
     let words = {
       "clear-day": ["banging", "sunny", "roasting", "swealtering", "schwealterin'", "dynamite", "unreal", "amazing", "lovely", "hot", "warm", "great"],
-      "clear-night": ["starry", "unreal", "pretty", "lovely", "amazing"],
+      "clear-night": ["starry", "unreal", "lovely"],
       "rain": ["wet", "soggy", "damp", "moist", "cold", "coul", "baltic", "freezing", "chilly"],
       "snow": ["snowy", "artic", "baltic", "freezing", "freezin'", "chilly"],
       "sleet": ["wet",  "wet and snowy", "freezin'", "freezing", "damp", "moist", "cold", "coul", "baltic", "chilly"],
       "wind": ["windy", "chilly", "cold", "coul", "baltic", "blustery"],
       "fog": ["foggy"],
       "cloudy": ["grey", "shite", "cloudy", "ballix"],
-      "partly-cloudy-day": ["cloudy", "so-so", "not too bad"],
+      "partly-cloudy-day": ["cloudy", "not too bad"],
       "partly-cloudy-night": ["starry", "pretty", "lovely"],
     };
 
