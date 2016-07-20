@@ -70,15 +70,15 @@ export default Ember.Route.extend({
     if (temp >= this.controller.get('trigger') && this.goodConditions.indexOf(data.currently.icon) !== -1)  {
       // Warm
       lines.push("Hell yeah", "Of course", "Get the legs out", "Totes", "Flat out", "No Doubt", "It bloody well is");
-      description = "It's a " + this.forecast_icon_to_word(data.currently.icon) + " " + Math.round(temp) + " Degrees";
+      description = "It's " + this.forecast_icon_to_word(data.currently.icon) + " " + Math.round(temp) + " Degrees";
     } else if (warmer_hours.length >= 1) {
       // Not warm now but a warmer hour later
       lines.push("Not now, but it'll be warmer later", "Give it a chance", "Houl yer horses", "Relax yer kacks", "Don't worry", "Not yet");
-      description = "It's a " + this.forecast_icon_to_word(data.currently.icon) + " " + Math.round(temp) + " degrees right now, but it'll be a " + this.forecast_icon_to_word(high.icon) + " " + Math.round(high.apparentTemperature) + " degrees later";
+      description = "It's a " + this.forecast_icon_to_word(data.currently.icon) + " " + Math.round(temp) + " degrees right now, but it'll be " + this.forecast_icon_to_word(high.icon) + " " + Math.round(high.apparentTemperature) + " degrees later";
     } else {
       // Not warm and no warmer hours later
       lines.push("No way", "Hell no", "Are you not wise?", "Jeans flat out", "Fraid not", "Way on", "Away on", "Fuck away off", "Are you having a giraffe?");
-      description = "It's a " + this.forecast_icon_to_word(data.currently.icon) + " " + Math.round(temp) + " Degrees";
+      description = "It's " + this.forecast_icon_to_word(data.currently.icon) + " " + Math.round(temp) + " Degrees";
     }
 
     let result = {
@@ -105,7 +105,16 @@ export default Ember.Route.extend({
       "partly-cloudy-night": ["starry", "pretty", "lovely"],
     };
 
-    return words[icon][Math.floor(Math.random()*words[icon].length)];
+    let word = words[icon][Math.floor(Math.random()*words[icon].length)];
+    let prefixed_word;
+
+    if (['a', 'e', 'i', 'o', 'u'].indexOf(word.charAt(0)) !== -1 ) {
+      prefixed_word = "an " + word;
+    } else {
+      prefixed_word = "a " + word;
+    }
+
+    return prefixed_word;
   },
 
   actions: {
