@@ -84,16 +84,27 @@ var _class = function (_React$Component) {
   }, {
     key: 'getWeather',
     value: function getWeather() {
+      var _this2 = this;
+
       console.log('fetching');
-      fetch("https://shorts-weather-api.herokuapp.com/forecast.json?lat=" + this.state.lat + "&long=" + this.state.long).then(this.setWeather.bind(this));
+
+      var url = "https://shorts-weather-api.herokuapp.com/forecast.json?lat=" + this.state.lat + "&long=" + this.state.long;
+
+      fetch(url).then(function (response) {
+        return response.json();
+      }).then(function (data) {
+        return _this2.setWeather(data);
+      });
+      // if (response.ok) {
+      //   response.json().then((response) =>
+      //     this.setWeather(response).bind
+      //   )
+      // }
+      // }).bind(this);
     }
   }, {
     key: 'setWeather',
-    value: function setWeather(response) {
-      var data = response.body;
-
-      debugger;
-
+    value: function setWeather(data) {
       this.setState({
         weather: data.currently
       });
@@ -103,7 +114,7 @@ var _class = function (_React$Component) {
   }, {
     key: 'setResult',
     value: function setResult(data) {
-      var _this2 = this;
+      var _this3 = this;
 
       var lines = [];
       var description = void 0;
@@ -112,7 +123,7 @@ var _class = function (_React$Component) {
       var temp = data.currently.apparentTemperature;
 
       var warmer_hours = data.hourly.data.filter(function (hour) {
-        return hour.apparentTemperature >= _this2.trigger && _this2.goodConditions.indexOf(hour.icon) !== -1;
+        return hour.apparentTemperature >= _this3.trigger && _this3.goodConditions.indexOf(hour.icon) !== -1;
       });
 
       var sorted_warmer_hours = warmer_hours.sort(function (a, b) {
@@ -144,8 +155,10 @@ var _class = function (_React$Component) {
 
       console.log(result);
 
-      this.setState(result);
-      this.setState(hasForecast);
+      this.setState({
+        result: result,
+        hasForecast: true
+      });
     }
   }, {
     key: 'forecastIconToWord',
@@ -180,21 +193,21 @@ var _class = function (_React$Component) {
       return _react2.default.createElement('div', {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 152
+          lineNumber: 160
         }
       }, _react2.default.createElement('h1', {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 153
+          lineNumber: 161
         }
       }, 'Is It Shorts Weather Today?'), _react2.default.createElement(_query2.default, { onClick: this.findOutClick, __source: {
           fileName: _jsxFileName,
-          lineNumber: 155
+          lineNumber: 163
         }
       }), _react2.default.createElement(_result2.default, {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 157
+          lineNumber: 165
         }
       }));
     }

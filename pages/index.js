@@ -59,15 +59,21 @@ export default class extends React.Component {
 
   getWeather() {
     console.log('fetching')
-    fetch("https://shorts-weather-api.herokuapp.com/forecast.json?lat=" + this.state.lat + "&long=" + this.state.long)
-      .then(this.setWeather.bind(this));
+
+    let url = "https://shorts-weather-api.herokuapp.com/forecast.json?lat=" + this.state.lat + "&long=" + this.state.long;
+
+    fetch(url)
+      .then(response => response.json())
+      .then(data => this.setWeather(data))
+      // if (response.ok) {
+      //   response.json().then((response) =>
+      //     this.setWeather(response).bind
+      //   )
+      // }
+    // }).bind(this);
   }
 
-  setWeather(response) {
-    let data = response.body;
-
-    debugger
-
+  setWeather(data) {
     this.setState(
       {
         weather: data.currently
@@ -117,8 +123,10 @@ export default class extends React.Component {
 
     console.log(result)
 
-    this.setState(result: result);
-    this.setState(hasForecast: true);
+    this.setState({
+      result: result,
+      hasForecast: true,
+    });
   }
 
   forecastIconToWord(icon) {
