@@ -52,7 +52,8 @@ export default class extends React.Component {
     console.log(position)
     this.setState({
       lat: position.coords.latitude,
-      long: position.coords.longitude
+      long: position.coords.longitude,
+      hasLocation: true,
     })
     this.getWeather();
   }
@@ -65,12 +66,6 @@ export default class extends React.Component {
     fetch(url)
       .then(response => response.json())
       .then(data => this.setWeather(data))
-      // if (response.ok) {
-      //   response.json().then((response) =>
-      //     this.setWeather(response).bind
-      //   )
-      // }
-    // }).bind(this);
   }
 
   setWeather(data) {
@@ -162,7 +157,11 @@ export default class extends React.Component {
 
         <Query onClick={this.findOutClick} />
 
-        <Result/>
+        {
+          this.state.hasForecast && this.state.result &&
+          <Result result={this.state.result}/>
+        }
+
       </div>
     )
   }

@@ -77,7 +77,8 @@ var _class = function (_React$Component) {
       console.log(position);
       this.setState({
         lat: position.coords.latitude,
-        long: position.coords.longitude
+        long: position.coords.longitude,
+        hasLocation: true
       });
       this.getWeather();
     }
@@ -95,12 +96,6 @@ var _class = function (_React$Component) {
       }).then(function (data) {
         return _this2.setWeather(data);
       });
-      // if (response.ok) {
-      //   response.json().then((response) =>
-      //     this.setWeather(response).bind
-      //   )
-      // }
-      // }).bind(this);
     }
   }, {
     key: 'setWeather',
@@ -193,21 +188,20 @@ var _class = function (_React$Component) {
       return _react2.default.createElement('div', {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 160
+          lineNumber: 155
         }
       }, _react2.default.createElement('h1', {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 161
+          lineNumber: 156
         }
       }, 'Is It Shorts Weather Today?'), _react2.default.createElement(_query2.default, { onClick: this.findOutClick, __source: {
           fileName: _jsxFileName,
-          lineNumber: 163
+          lineNumber: 158
         }
-      }), _react2.default.createElement(_result2.default, {
-        __source: {
+      }), this.state.hasForecast && this.state.result && _react2.default.createElement(_result2.default, { result: this.state.result, __source: {
           fileName: _jsxFileName,
-          lineNumber: 165
+          lineNumber: 162
         }
       }));
     }
