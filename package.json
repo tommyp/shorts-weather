@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "next",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "heroku-postbuild": "next build"
   },
   "repository": "",
   "engines": {
@@ -14,12 +15,10 @@
   },
   "author": "",
   "license": "MIT",
-  "devDependencies": {
-
-  },
   "dependencies": {
     "next": "^2.2.0",
     "react": "^15.5.4",
-    "react-dom": "^15.5.4"
+    "react-dom": "^15.5.4",
+    "react-typekit": "^1.1.0"
   }
 }

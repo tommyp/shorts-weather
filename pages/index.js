@@ -1,6 +1,8 @@
 import React from 'react';
 import Result from '../components/result';
 import Query from '../components/query';
+import Head from 'next/head';
+import Typekit from 'react-typekit';
 
 export default class extends React.Component {
 
@@ -45,6 +47,7 @@ export default class extends React.Component {
 
   findOutClick(e) {
     e.preventDefault();
+    this.setState({isLoading: true})
     window.navigator.geolocation.getCurrentPosition(this.setPosition.bind(this));
   }
 
@@ -119,6 +122,7 @@ export default class extends React.Component {
     console.log(result)
 
     this.setState({
+      isLoading: false,
       result: result,
       hasForecast: true,
     });
@@ -126,7 +130,7 @@ export default class extends React.Component {
 
   forecastIconToWord(icon) {
     let words = {
-      "clear-day": ["banging", "sunny", "roasting", "swealtering", "schwealterin'", "dynamite", "unreal", "amazing", "lovely", "hot", "warm", "great"],
+      "clear-day": ["nice", "sunny", "roasting", "swealtering", "schwealterin'", "dynamite", "unreal", "amazing", "lovely", "hot", "warm", "great"],
       "clear-night": ["starry", "unreal", "lovely"],
       "rain": ["wet", "soggy", "damp", "moist", "cold", "coul", "baltic", "freezing", "chilly"],
       "snow": ["snowy", "artic", "baltic", "freezing", "freezin'", "chilly"],
@@ -153,14 +157,147 @@ export default class extends React.Component {
   render() {
     return (
       <div>
+        <Head>
+          <title>Is it Shorts Weather today?</title>
+          <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+          <Typekit kitId="ioh1wfg" />
+        </Head>
+        <style jsx global>{`
+          * {
+            box-sizing: border-box;
+          }
+
+          h1, h2 {
+            font-weight: normal;
+            margin: 0;
+          }
+
+          body {
+            border-top: 5px solid #fff;
+            width: 100%;
+            margin: 0 auto;
+            background: #c02425;
+            /* Old browsers */
+            background: -moz-linear-gradient(top, #c02425 0%, #f0cb35 100%);
+            background: -webkit-linear-gradient(top, #c02425 0%, #f0cb35 100%);
+            background: linear-gradient(to bottom, #c02425 0%, #f0cb35 100%);
+            filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c02425', endColorstr='#f0cb35',GradientType=0 );
+            height: 100%;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+          }
+          body .container {
+            text-align: center;
+          }
+
+          html {
+            height: 100%;
+          }
+
+          h1 {
+            font-family: "futura-pt-condensed",sans-serif;
+            font-style: italic;
+            text-align: center;
+            text-transform: uppercase;
+            font-weight: 600;
+            color: #fff;
+            font-size: 120px;
+            text-align: center;
+            font-weight: bold;
+          }
+
+          h2 {
+            font-family: "futura-pt-condensed",sans-serif;
+            font-style: italic;
+            text-align: center;
+            text-transform: uppercase;
+            font-weight: 600;
+            color: #fff;
+            font-size: 80px;
+            max-width: 80%;
+            margin: 0 auto;
+          }
+
+          #description {
+            font-size: 60px;
+            margin-bottom: 20px;
+          }
+
+          button {
+            -webkit-appearance: none;
+            border: none;
+            background: none;
+            font-family: "futura-pt-condensed",sans-serif;
+            font-style: italic;
+            text-align: center;
+            text-transform: uppercase;
+            font-weight: 600;
+            color: #fff;
+            margin: 20px auto 0;
+            border: 5px solid #fff;
+            font-size: 30px;
+            display: block;
+            cursor: pointer;
+          }
+
+          #tweet {
+            display: none;
+          }
+
+          footer {
+            font-family: "futura-pt-condensed",sans-serif;
+            font-style: italic;
+            text-align: center;
+            text-transform: uppercase;
+            font-weight: 600;
+            margin: 25px auto 0;
+            font-size: 24px;
+            text-transform: uppercase;
+          }
+
+          footer a {
+            color: #fff;
+            text-decoration: none;
+            border-bottom: 1px solid #fff;
+          }
+
+          @media screen and (max-width: 700px) {
+            h1 {
+              font-size: 60px;
+              margin-bottom: 20px;
+            }
+
+            #answer {
+              font-size: 40px;
+              margin-bottom: 20px;
+            }
+
+            #description {
+              font-size: 50px;
+            }
+          }
+
+        `}</style>
+
         <h1>Is It Shorts Weather Today?</h1>
 
-        <Query onClick={this.findOutClick} />
+        { !this.state.result &&
+          <Query onClick={this.findOutClick} />
+        }
+
+        {
+          this.state.isLoading &&
+          <h2>Loading...</h2>
+        }
 
         {
           this.state.hasForecast && this.state.result &&
           <Result result={this.state.result}/>
         }
+
+        <footer>
+          <a href='http://tommyp.org'>Made by Tommy</a>
+        </footer>
 
       </div>
     )
