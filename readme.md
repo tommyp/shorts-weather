@@ -1,4 +1,4 @@
-# Shorts Weather 4.0
+# Shorts Weather 5.0
 
 * _JS geolocation_ - No more typing in your city! What are you, a person with fingers!? Sheesh.
 * _Responsive layout_ - You got a mobile device? I got a mobile layout!
