@@ -1,1 +1,1 @@
-web: next -p $PORT
+web: next start -p $PORT
