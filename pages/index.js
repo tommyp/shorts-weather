@@ -18,6 +18,7 @@ export default class extends React.Component {
       weather: {},
       hasLocation: false,
       hasForecast: false,
+      isLoading: false,
     }
   }
 
@@ -281,7 +282,7 @@ export default class extends React.Component {
 
         <h1>Is It Shorts Weather Today?</h1>
 
-        { !this.state.result &&
+        { !this.state.result && !this.state.isLoading &&
           <Query onClick={this.findOutClick} />
         }
 
