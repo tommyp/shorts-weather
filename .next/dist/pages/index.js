@@ -24,6 +24,10 @@ var _inherits2 = require('babel-runtime/helpers/inherits');
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
+var _style = require('next/node_modules/styled-jsx/style.js');
+
+var _style2 = _interopRequireDefault(_style);
+
 var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
@@ -35,6 +39,14 @@ var _result2 = _interopRequireDefault(_result);
 var _query = require('../components/query');
 
 var _query2 = _interopRequireDefault(_query);
+
+var _head = require('next/dist/lib/head.js');
+
+var _head2 = _interopRequireDefault(_head);
+
+var _reactTypekit = require('react-typekit');
+
+var _reactTypekit2 = _interopRequireDefault(_reactTypekit);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -57,7 +69,8 @@ var _class = function (_React$Component) {
       errors: {},
       weather: {},
       hasLocation: false,
-      hasForecast: false
+      hasForecast: false,
+      isLoading: false
     };
     return _this;
   }
@@ -69,6 +82,7 @@ var _class = function (_React$Component) {
     key: 'findOutClick',
     value: function findOutClick(e) {
       e.preventDefault();
+      this.setState({ isLoading: true });
       window.navigator.geolocation.getCurrentPosition(this.setPosition.bind(this));
     }
   }, {
@@ -151,6 +165,7 @@ var _class = function (_React$Component) {
       console.log(result);
 
       this.setState({
+        isLoading: false,
         result: result,
         hasForecast: true
       });
@@ -159,7 +174,7 @@ var _class = function (_React$Component) {
     key: 'forecastIconToWord',
     value: function forecastIconToWord(icon) {
       var words = {
-        "clear-day": ["banging", "sunny", "roasting", "swealtering", "schwealterin'", "dynamite", "unreal", "amazing", "lovely", "hot", "warm", "great"],
+        "clear-day": ["nice", "sunny", "roasting", "swealtering", "schwealterin'", "dynamite", "unreal", "amazing", "lovely", "hot", "warm", "great"],
         "clear-night": ["starry", "unreal", "lovely"],
         "rain": ["wet", "soggy", "damp", "moist", "cold", "coul", "baltic", "freezing", "chilly"],
         "snow": ["snowy", "artic", "baltic", "freezing", "freezin'", "chilly"],
@@ -186,24 +201,66 @@ var _class = function (_React$Component) {
     key: 'render',
     value: function render() {
       return _react2.default.createElement('div', {
+        'data-jsx': 3072156723,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 155
+          lineNumber: 160
         }
-      }, _react2.default.createElement('h1', {
+      }, _react2.default.createElement(_head2.default, {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 156
+          lineNumber: 161
         }
-      }, 'Is It Shorts Weather Today?'), _react2.default.createElement(_query2.default, { onClick: this.findOutClick, __source: {
-          fileName: _jsxFileName,
-          lineNumber: 158
-        }
-      }), this.state.hasForecast && this.state.result && _react2.default.createElement(_result2.default, { result: this.state.result, __source: {
+      }, _react2.default.createElement('title', {
+        'data-jsx': 3072156723,
+        __source: {
           fileName: _jsxFileName,
           lineNumber: 162
         }
-      }));
+      }, 'Is it Shorts Weather today?'), _react2.default.createElement('meta', { name: 'viewport', content: 'initial-scale=1.0, width=device-width', 'data-jsx': 3072156723,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 163
+        }
+      }), _react2.default.createElement(_reactTypekit2.default, { kitId: 'ioh1wfg', __source: {
+          fileName: _jsxFileName,
+          lineNumber: 164
+        }
+      })), _react2.default.createElement(_style2.default, {
+        styleId: 3072156723,
+        css: '\n          * {\n            box-sizing: border-box;\n          }\n\n          h1, h2 {\n            font-weight: normal;\n            margin: 0;\n          }\n\n          body {\n            border-top: 5px solid #fff;\n            width: 100%;\n            margin: 0 auto;\n            background: #c02425;\n            /* Old browsers */\n            background: -moz-linear-gradient(top, #c02425 0%, #f0cb35 100%);\n            background: -webkit-linear-gradient(top, #c02425 0%, #f0cb35 100%);\n            background: linear-gradient(to bottom, #c02425 0%, #f0cb35 100%);\n            filter: progid:DXImageTransform.Microsoft.gradient( startColorstr=\'#c02425\', endColorstr=\'#f0cb35\',GradientType=0 );\n            height: 100%;\n            background-repeat: no-repeat;\n            background-attachment: fixed;\n          }\n          body .container {\n            text-align: center;\n          }\n\n          html {\n            height: 100%;\n          }\n\n          h1 {\n            font-family: "futura-pt-condensed",sans-serif;\n            font-style: italic;\n            text-align: center;\n            text-transform: uppercase;\n            font-weight: 600;\n            color: #fff;\n            font-size: 120px;\n            text-align: center;\n            font-weight: bold;\n          }\n\n          h2 {\n            font-family: "futura-pt-condensed",sans-serif;\n            font-style: italic;\n            text-align: center;\n            text-transform: uppercase;\n            font-weight: 600;\n            color: #fff;\n            font-size: 80px;\n            max-width: 80%;\n            margin: 0 auto;\n          }\n\n          #description {\n            font-size: 60px;\n            margin-bottom: 20px;\n          }\n\n          button {\n            -webkit-appearance: none;\n            border: none;\n            background: none;\n            font-family: "futura-pt-condensed",sans-serif;\n            font-style: italic;\n            text-align: center;\n            text-transform: uppercase;\n            font-weight: 600;\n            color: #fff;\n            margin: 20px auto 0;\n            border: 5px solid #fff;\n            font-size: 30px;\n            display: block;\n            cursor: pointer;\n          }\n\n          #tweet {\n            display: none;\n          }\n\n          footer {\n            font-family: "futura-pt-condensed",sans-serif;\n            font-style: italic;\n            text-align: center;\n            text-transform: uppercase;\n            font-weight: 600;\n            margin: 25px auto 0;\n            font-size: 24px;\n            text-transform: uppercase;\n          }\n\n          footer a {\n            color: #fff;\n            text-decoration: none;\n            border-bottom: 1px solid #fff;\n          }\n\n          @media screen and (max-width: 700px) {\n            h1 {\n              font-size: 60px;\n              margin-bottom: 20px;\n            }\n\n            #answer {\n              font-size: 40px;\n              margin-bottom: 20px;\n            }\n\n            #description {\n              font-size: 50px;\n            }\n          }\n\n        '
+      }), _react2.default.createElement('h1', {
+        'data-jsx': 3072156723,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 283
+        }
+      }, 'Is It Shorts Weather Today?'), !this.state.result && !this.state.isLoading && _react2.default.createElement(_query2.default, { onClick: this.findOutClick, __source: {
+          fileName: _jsxFileName,
+          lineNumber: 286
+        }
+      }), this.state.isLoading && _react2.default.createElement('h2', {
+        'data-jsx': 3072156723,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 291
+        }
+      }, 'Loading...'), this.state.hasForecast && this.state.result && _react2.default.createElement(_result2.default, { result: this.state.result, __source: {
+          fileName: _jsxFileName,
+          lineNumber: 296
+        }
+      }), _react2.default.createElement('footer', {
+        'data-jsx': 3072156723,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 299
+        }
+      }, _react2.default.createElement('a', { href: 'http://tommyp.org', 'data-jsx': 3072156723,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 300
+        }
+      }, 'Made by Tommy')));
     }
   }]);
 
