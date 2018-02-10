@@ -140,7 +140,7 @@ export default class extends React.Component {
       "fog": ["foggy"],
       "cloudy": ["grey", "shite", "cloudy", "ballix"],
       "partly-cloudy-day": ["cloudy", "not too bad"],
-      "partly-cloudy-night": ["starry", "pretty", "lovely"],
+      "partly-cloudy-night": ["starry"],
     };
 
     let word = words[icon][Math.floor(Math.random()*words[icon].length)];
