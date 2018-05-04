@@ -18,6 +18,7 @@ export default class extends React.Component {
       weather: {},
       hasLocation: false,
       hasForecast: false,
+      isLoading: false,
     }
   }
 
@@ -139,7 +140,7 @@ export default class extends React.Component {
       "fog": ["foggy"],
       "cloudy": ["grey", "shite", "cloudy", "ballix"],
       "partly-cloudy-day": ["cloudy", "not too bad"],
-      "partly-cloudy-night": ["starry", "pretty", "lovely"],
+      "partly-cloudy-night": ["starry"],
     };
 
     let word = words[icon][Math.floor(Math.random()*words[icon].length)];
@@ -281,7 +282,7 @@ export default class extends React.Component {
 
         <h1>Is It Shorts Weather Today?</h1>
 
-        { !this.state.result &&
+        { !this.state.result && !this.state.isLoading &&
           <Query onClick={this.findOutClick} />
         }
 
