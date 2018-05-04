@@ -26,26 +26,6 @@ export default class extends React.Component {
 
   }
 
-  trigger: 16;
-
-  possibleConditions: [
-    "clear-day", // YES
-    "clear-night",
-    "rain", // NO
-    "snow", // NO
-    "sleet", // NO
-    "wind", // NO
-    "fog", // NO
-    "cloudy", // NO
-    "partly-cloudy-day", // YES
-    "partly-cloudy-night", // NO
-  ]
-
-  goodConditions: [
-    "partly-cloudy-day", // YES
-    "clear-day", // YES
-  ]
-
   findOutClick(e) {
     e.preventDefault();
     this.setState({isLoading: true})
@@ -87,10 +67,30 @@ export default class extends React.Component {
     let description;
     let high;
 
+    let trigger = 16;
+
+    let possibleConditions = [
+      "clear-day", // YES
+      "clear-night",
+      "rain", // NO
+      "snow", // NO
+      "sleet", // NO
+      "wind", // NO
+      "fog", // NO
+      "cloudy", // NO
+      "partly-cloudy-day", // YES
+      "partly-cloudy-night", // NO
+    ]
+
+    let goodConditions = [
+      "partly-cloudy-day", // YES
+      "clear-day", // YES
+    ]
+
     let temp = data.currently.apparentTemperature;
 
     let warmer_hours = data.hourly.data.filter((hour) => {
-      return hour.apparentTemperature >= this.trigger && this.goodConditions.indexOf(hour.icon) !== -1;
+      return hour.apparentTemperature >= trigger && goodConditions.indexOf(hour.icon) !== -1;
     });
 
     let sorted_warmer_hours = warmer_hours.sort(function(a, b) {
@@ -101,7 +101,7 @@ export default class extends React.Component {
       high = sorted_warmer_hours.pop();
     }
 
-    if (temp >= this.trigger && this.goodConditions.indexOf(data.currently.icon) !== -1)  {
+    if (temp >= trigger && goodConditions.indexOf(data.currently.icon) !== -1)  {
       // Warm
       lines.push("Hell yeah", "Of course", "Get the legs out", "Totes", "Flat out", "No Doubt", "It bloody well is");
       description = "It's " + this.forecastIconToWord(data.currently.icon) + " " + Math.round(temp) + " Degrees";
