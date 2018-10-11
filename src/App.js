@@ -2,7 +2,6 @@ import React from 'react';
 import Result from './components/result';
 import Query from './components/query';
 import {Helmet} from "react-helmet";
-import Typekit from 'react-typekit';
 
 
 export default class extends React.Component {
@@ -162,7 +161,7 @@ export default class extends React.Component {
         <Helmet>
           <title>Is it Shorts Weather today?</title>
           <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-          <Typekit kitId="ioh1wfg" />
+          <link rel="stylesheet" href="https://use.typekit.net/ioh1wfg.css" />
         </Helmet>
         <style jsx global>{`
           * {
