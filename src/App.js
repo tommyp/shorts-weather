@@ -1,8 +1,9 @@
 import React from 'react';
-import Result from '../components/result';
-import Query from '../components/query';
-import Head from 'next/head';
+import Result from './components/result';
+import Query from './components/query';
+import {Helmet} from "react-helmet";
 import Typekit from 'react-typekit';
+
 
 export default class extends React.Component {
 
@@ -158,11 +159,11 @@ export default class extends React.Component {
   render() {
     return (
       <div>
-        <Head>
+        <Helmet>
           <title>Is it Shorts Weather today?</title>
           <meta name="viewport" content="initial-scale=1.0, width=device-width" />
           <Typekit kitId="ioh1wfg" />
-        </Head>
+        </Helmet>
         <style jsx global>{`
           * {
             box-sizing: border-box;
