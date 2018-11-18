@@ -45,7 +45,7 @@ export default class extends React.Component {
   getWeather() {
     console.log('fetching')
 
-    let url = "https://shorts-weather-api.herokuapp.com/forecast.json?lat=" + this.state.lat + "&long=" + this.state.long;
+    let url = "https://shorts-backend.herokuapp.com/forecast.json?lat=" + this.state.lat + "&lng=" + this.state.long;
 
     fetch(url)
       .then(response => response.json())
